@@ -23,28 +23,25 @@ export default function Navbar() {
 
   const links = [
     { to: "/", label: "Home" },
-    { to: "/menu", label: "Menu" },
+    { to: "/menu", label: "Shop" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-card/80 backdrop-blur-lg border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background border-b-2 border-foreground">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="font-display text-2xl font-bold text-gradient">
-          🔥 FeastRush
+        <Link to="/" className="font-display text-3xl font-normal tracking-tight text-foreground">
+          RAW<span className="text-primary">.</span>CO
         </Link>
 
-        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className={`font-medium transition-colors hover:text-primary ${
-                location.pathname === l.to
-                  ? "text-primary"
-                  : "text-muted-foreground"
+              className={`text-sm uppercase tracking-widest font-semibold transition-colors hover:text-primary ${
+                location.pathname === l.to ? "text-primary" : "text-foreground"
               }`}
             >
               {l.label}
@@ -52,25 +49,25 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setDark(!dark)}
-            className="p-2 rounded-full hover:bg-secondary transition-colors text-foreground"
+            className="p-2 border-2 border-foreground hover:bg-accent transition-colors text-foreground"
             aria-label="Toggle dark mode"
           >
-            {dark ? <Sun size={20} /> : <Moon size={20} />}
+            {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           <Link
             to="/cart"
-            className="relative p-2 rounded-full hover:bg-secondary transition-colors text-foreground"
+            className="relative p-2 border-2 border-foreground hover:bg-accent transition-colors text-foreground"
           >
-            <ShoppingCart size={22} />
+            <ShoppingCart size={18} />
             {totalItems > 0 && (
               <motion.span
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold w-5 h-5 flex items-center justify-center border-2 border-foreground"
               >
                 {totalItems}
               </motion.span>
@@ -79,32 +76,31 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 border-2 border-foreground text-foreground"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden border-t border-border overflow-hidden bg-card"
+            className="md:hidden border-t-2 border-foreground overflow-hidden bg-background"
           >
-            <div className="flex flex-col p-4 gap-3">
+            <div className="flex flex-col p-4 gap-1">
               {links.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
-                  className={`py-2 px-4 rounded-lg font-medium transition-colors ${
+                  className={`py-3 px-4 text-sm uppercase tracking-widest font-semibold border-2 border-foreground ${
                     location.pathname === l.to
                       ? "bg-primary text-primary-foreground"
-                      : "text-foreground hover:bg-secondary"
+                      : "bg-background text-foreground hover:bg-accent"
                   }`}
                 >
                   {l.label}
