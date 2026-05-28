@@ -2,42 +2,55 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-card border-t border-border mt-auto">
-      <div className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="font-display text-xl font-bold text-gradient mb-3">🔥 FeastRush</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Delivering delicious food right to your doorstep. Fresh, fast, and flavorful.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-display font-semibold mb-3 text-foreground">Quick Links</h4>
-            <div className="flex flex-col gap-2">
-              {[
-                { to: "/menu", label: "Menu" },
-                { to: "/about", label: "About Us" },
-                { to: "/contact", label: "Contact" },
-                { to: "/cart", label: "Cart" },
-              ].map((l) => (
-                <Link key={l.to} to={l.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {l.label}
-                </Link>
+    <footer className="bg-foreground text-background mt-auto border-t-2 border-foreground">
+      {/* Marquee */}
+      <div className="overflow-hidden border-b-2 border-background py-4 bg-primary text-primary-foreground">
+        <div className="flex marquee-track whitespace-nowrap">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="flex shrink-0">
+              {Array.from({ length: 8 }).map((__, j) => (
+                <span key={j} className="font-display text-3xl px-8 italic">
+                  RAW.CO — built heavy — worn loud — since 2024 ✱&nbsp;
+                </span>
               ))}
             </div>
-          </div>
-          <div>
-            <h4 className="font-display font-semibold mb-3 text-foreground">Contact</h4>
-            <div className="text-sm text-muted-foreground space-y-1">
-              <p>📍 123 Food Street, Flavor Town</p>
-              <p>📞 +1 (555) 123-4567</p>
-              <p>✉️ hello@feastrush.com</p>
-            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="md:col-span-2">
+          <h3 className="font-display text-5xl mb-2">RAW.CO</h3>
+          <p className="text-sm leading-relaxed opacity-80 max-w-sm">
+            Heavyweight tees made for everyday wear. No logos. No noise. Just honest cotton, cut and sewn with care.
+          </p>
+        </div>
+        <div>
+          <h4 className="text-xs uppercase tracking-widest font-bold mb-3">Shop</h4>
+          <div className="flex flex-col gap-2 text-sm">
+            {[
+              { to: "/menu", label: "All Products" },
+              { to: "/menu?category=oversized", label: "Oversized" },
+              { to: "/menu?category=graphic", label: "Graphic" },
+              { to: "/cart", label: "Cart" },
+            ].map((l) => (
+              <Link key={l.to} to={l.to} className="opacity-80 hover:opacity-100 hover:text-accent">
+                {l.label}
+              </Link>
+            ))}
           </div>
         </div>
-        <div className="border-t border-border mt-8 pt-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} FeastRush. All rights reserved.
+        <div>
+          <h4 className="text-xs uppercase tracking-widest font-bold mb-3">Contact</h4>
+          <div className="text-sm space-y-1 opacity-80">
+            <p>hello@raw.co</p>
+            <p>+1 (555) 010-9999</p>
+            <p>Brooklyn, NY</p>
+          </div>
         </div>
+      </div>
+      <div className="border-t-2 border-background py-4 text-center text-xs uppercase tracking-widest opacity-70">
+        © {new Date().getFullYear()} RAW.CO — All rights reserved
       </div>
     </footer>
   );

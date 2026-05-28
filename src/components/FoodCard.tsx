@@ -13,7 +13,7 @@ export default function FoodCard({ item }: FoodCardProps) {
 
   const handleAdd = () => {
     dispatch({ type: "ADD_ITEM", payload: item });
-    toast.success(`${item.name} added to cart!`);
+    toast.success(`${item.name} added to bag`);
   };
 
   return (
@@ -22,33 +22,40 @@ export default function FoodCard({ item }: FoodCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       whileHover={{ y: -4 }}
-      className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 group"
+      className="bg-card border-2 border-foreground shadow-brutal-sm hover:shadow-brutal transition-all duration-200 group flex flex-col"
     >
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="relative overflow-hidden aspect-square border-b-2 border-foreground bg-secondary">
         <img
           src={item.image}
           alt={item.name}
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute top-3 right-3 bg-card/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1 text-sm">
-          <Star size={14} className="fill-primary text-primary" />
-          <span className="font-semibold text-foreground">{item.rating}</span>
+        <div className="absolute top-3 left-3 bg-background border-2 border-foreground px-2 py-0.5 flex items-center gap-1 text-xs font-bold">
+          <Star size={12} className="fill-foreground text-foreground" />
+          <span>{item.rating}</span>
         </div>
+        {item.featured && (
+          <div className="absolute top-3 right-3 bg-accent border-2 border-foreground px-2 py-0.5 text-xs font-black uppercase tracking-wider text-accent-foreground">
+            New
+          </div>
+        )}
       </div>
-      <div className="p-4">
-        <h3 className="font-display font-semibold text-lg text-foreground">{item.name}</h3>
-        <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
-        <div className="flex items-center justify-between mt-4">
-          <span className="text-xl font-bold text-primary">${item.price.toFixed(2)}</span>
-          <button
-            onClick={handleAdd}
-            className="bg-primary text-primary-foreground rounded-full p-2 hover:opacity-90 transition-opacity active:scale-95"
-            aria-label={`Add ${item.name} to cart`}
-          >
-            <Plus size={20} />
-          </button>
+      <div className="p-4 flex-1 flex flex-col">
+        <div className="flex items-baseline justify-between gap-2">
+          <h3 className="font-display text-2xl leading-none text-foreground">{item.name}</h3>
+          <span className="text-lg font-black text-foreground whitespace-nowrap">${item.price}</span>
         </div>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
+          {item.color}
+        </p>
+        <p className="text-sm text-muted-foreground mt-2 line-clamp-2 flex-1">{item.description}</p>
+        <button
+          onClick={handleAdd}
+          className="mt-4 w-full bg-foreground text-background font-bold uppercase tracking-widest text-xs py-3 hover:bg-primary hover:text-primary-foreground transition-colors flex items-center justify-center gap-2 border-2 border-foreground"
+        >
+          <Plus size={14} /> Add to bag
+        </button>
       </div>
     </motion.div>
   );

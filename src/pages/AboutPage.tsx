@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { Utensils, Users, Heart, Award } from "lucide-react";
+import { Package, Users, Star, Award } from "lucide-react";
 
 export default function AboutPage() {
   const stats = [
-    { icon: Utensils, value: "500+", label: "Menu Items" },
-    { icon: Users, value: "50K+", label: "Happy Customers" },
-    { icon: Heart, value: "4.8", label: "Avg Rating" },
-    { icon: Award, value: "15+", label: "Awards Won" },
+    { icon: Package, value: "120+", label: "Styles shipped" },
+    { icon: Users, value: "40K+", label: "Customers" },
+    { icon: Star, value: "4.8", label: "Avg rating" },
+    { icon: Award, value: "100%", label: "Cotton" },
   ];
 
   return (
@@ -14,54 +14,63 @@ export default function AboutPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto text-center mb-16"
+        className="max-w-3xl mx-auto text-center mb-16 border-b-2 border-foreground pb-10"
       >
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-          About <span className="text-gradient">FeastRush</span>
+        <p className="text-xs uppercase tracking-[0.3em] font-bold text-primary mb-3">Our story</p>
+        <h1 className="font-display text-5xl md:text-7xl text-foreground mb-6">
+          About <em>RAW.CO</em>
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          Born from a love of great food and a passion for convenience, FeastRush connects you with the
-          best local restaurants and delivers fresh, delicious meals straight to your door. We believe
-          everyone deserves a feast — anytime, anywhere.
+          We build heavyweight cotton tees for people who want their basics to last. No flashy logos,
+          no shortcuts — just well-cut, well-made shirts you'll reach for every day.
         </p>
       </motion.div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-        {stats.map(({ icon: Icon, value, label }) => (
+        {stats.map(({ icon: Icon, value, label }, i) => (
           <motion.div
             key={label}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-card rounded-xl shadow-card p-6 text-center"
+            transition={{ delay: i * 0.05 }}
+            className={`border-2 border-foreground shadow-brutal-sm p-6 ${
+              i % 2 === 0 ? "bg-card" : "bg-accent text-accent-foreground"
+            }`}
           >
-            <Icon size={28} className="mx-auto text-primary mb-3" />
-            <p className="font-display text-2xl font-bold text-foreground">{value}</p>
-            <p className="text-sm text-muted-foreground">{label}</p>
+            <Icon size={22} className="mb-3" />
+            <p className="font-display text-4xl leading-none">{value}</p>
+            <p className="text-xs uppercase tracking-widest font-bold mt-2">{label}</p>
           </motion.div>
         ))}
       </div>
 
-      <div className="max-w-3xl mx-auto">
-        <h2 className="font-display text-2xl font-bold text-foreground mb-4">Our Story</h2>
-        <div className="space-y-4 text-muted-foreground leading-relaxed">
-          <p>
-            FeastRush was founded in 2023 with a simple mission: make incredible food accessible to
-            everyone. What started as a small local delivery service has grown into a platform
-            connecting thousands of food lovers with their favorite restaurants.
-          </p>
-          <p>
-            We partner with the finest chefs and restaurants in town, ensuring every meal meets our
-            high standards of quality and taste. From classic comfort food to adventurous new flavors,
-            there's something for every palate on FeastRush.
-          </p>
-          <p>
-            Our commitment goes beyond food. We're dedicated to sustainability, supporting local
-            businesses, and creating a community around the joy of eating well. Every order you place
-            helps local restaurants thrive and brings us closer to our vision of a world where great
-            food is never out of reach.
-          </p>
-        </div>
+      <div className="max-w-3xl mx-auto space-y-8">
+        {[
+          {
+            n: "01",
+            h: "Made for everyday",
+            p: "We started RAW.CO in 2024 with a single goal: build the best basic tee money can buy. Heavyweight cotton. Honest construction. Fits that work on real bodies."
+          },
+          {
+            n: "02",
+            h: "Small batches, big care",
+            p: "Every drop is produced in small batches with partners we've personally visited. We'd rather sell out than overproduce — that's how we keep the quality where it should be."
+          },
+          {
+            n: "03",
+            h: "No noise, no logos",
+            p: "Your tees shouldn't shout. We keep branding minimal so the shirt — the cut, the weight, the way it ages — does the talking."
+          },
+        ].map(({ n, h, p }) => (
+          <div key={n} className="border-2 border-foreground p-6 shadow-brutal-sm bg-card">
+            <div className="flex items-baseline gap-4 mb-2">
+              <span className="font-display text-4xl text-primary">{n}</span>
+              <h2 className="font-display text-3xl text-foreground">{h}</h2>
+            </div>
+            <p className="text-muted-foreground leading-relaxed">{p}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
